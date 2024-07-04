@@ -40,7 +40,7 @@ function Todos() {
   };
   return (
     <div className="w-full p-5 mx-auto">
-      <p className="text-center font-bold mb-3 text-2xl">Todo List</p>
+      <p className="text-center font-bold mb-3 text-2xl text-black dark:text-white">Todo List</p>
       {loader ? (
         <p className="animate-bounce text-center">Loading...</p>
       ) : (
