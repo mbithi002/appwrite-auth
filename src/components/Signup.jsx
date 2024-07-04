@@ -5,6 +5,7 @@ import { account } from '../appwrite/appwriteConfig'
 
 function Signup() {
   const navigate = useNavigate()
+  const [error, setError] = useState("")
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -12,23 +13,29 @@ function Signup() {
   })
   const signupUser = async (e) => {
     e.preventDefault()
+    setError("")
 
-    const promise = account.create(
-      uuidv4(),
-      user.email,
-      user.password,
-      user.name,
-    );
+    try {
+      const promise = account.create(
+        uuidv4(),
+        user.email,
+        user.password,
+        user.name,
+      );
 
-    promise.then(
-      function (response) {
-        console.log(response);
-        navigate('/profile')
-      },
-      function (error) {
-        console.log("SignUp.jsx :: Signup() :: ", error);
-      }
-    )
+      promise.then(
+        function (response) {
+          console.log(response);
+          navigate('/profile')
+        },
+        function (error) {
+          console.log("SignUp.jsx :: Signup() :: ", error);
+        }
+      )
+    } catch (error) {
+      console.log("Signup.jsx :: sugnupUser() :: ", error);
+      setError(error)
+    }
 
   }
   return (
@@ -36,7 +43,10 @@ function Signup() {
       <div className="sm:w-1/2 w-full h-auto bg-white dark:bg-purple-900 rounded-md flex flex-col content-center items-center justify-between px-20 dark:border dark:border-gray-300 border-none">
         <form method='POST' className='py-20 w-full'>
           <p className="text-center text-3xl text-black dark:text-white mb-3">Sign up</p>
-          <p className="text-center mb-3 text-black dark:text-white text-xl">Already have an account? <Link className="hover:text-blue-400 hover:underline transition-all duration-200" to={'/login'}>Login</Link></p>
+          <p className="text-center mb-3 text-black dark:text-white text-xl">Already have an account? <Link className="hover:text-blue-400 hover:underline transition-all duration-200" to={'/'}>Login</Link></p>
+          <p className="text-sm text-red-400 text-center">
+            {error ? error : ''}
+          </p>
           <label htmlFor="name" className="text-sm font-medium text-black dark:text-white mb-3">
             Name
           </label>
