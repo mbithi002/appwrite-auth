@@ -20,6 +20,12 @@ function login() {
     setError("")
     setLoading(1)
     try {
+      const exsisting = await account.get()
+      if (exsisting) {
+        dispatch(authLogin({ exsisting }))
+        navigate('/profile')
+        setLoading(0)
+      }
       const session = await account.createEmailPasswordSession(user.email, user.password)
       if (session) {
         const userData = await account.get()
@@ -88,7 +94,7 @@ function login() {
             type="submit"
             className="bg-blue-400 text-white dark:bg-green-400 w-full px-2 py-2 rounded-sm mt-3"
             onClick={loginUser}
-            disabled={ loading }
+            disabled={loading}
           >Login</button>
         </form>
       </div>
