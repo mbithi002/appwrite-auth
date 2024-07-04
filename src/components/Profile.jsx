@@ -49,7 +49,7 @@ function Profile() {
           <div className="fixed top-0 w-full px-2 py-7 flex flex-row justify-between items-center bg-white dark:bg-purple-600 h-[2rem]">
             <div className="flex flex-row items-center justify-between content-center">
               <span className="text-black dark:text-green-200 text-lg">
-                <strong>Hello</strong> {toCamelCase(userDetails.name)}<i class="fa-solid fa-user ml-3"></i>
+              <i class="fa-solid fa-user mx-3"></i><strong>Hello</strong> {toCamelCase(userDetails.name)}
               </span>
             </div>
             <div className="logo text-black dark:text-white">

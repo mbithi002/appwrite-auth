@@ -47,7 +47,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center content-center justify-center w-full h-screen dark:bg-purple-700 bg-gray-200">
+    <div className="flex flex-col items-center content-center justify-center w-full h-screen dark:bg-purple-700 bg-gray-200 px-2">
       <div className="sm:w-1/2 w-full h-auto bg-white dark:bg-purple-900 rounded-md flex flex-col content-center items-center justify-between px-20 dark:border dark:border-gray-300 border-none">
         <form method='POST' className='py-20 w-full'>
           <p className="text-center text-3xl text-black dark:text-white mb-3">Sign up</p>
@@ -110,6 +110,7 @@ function Signup() {
             }}
           />
           <button
+            disabled={loading}
             type="submit"
             className="bg-blue-400 text-white dark:bg-green-400 w-full px-2 py-2 rounded-sm mt-3"
             onClick={signupUser}
