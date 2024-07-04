@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { account } from '../appwrite/appwriteConfig'
 import { login as authLogin } from '../store/authSlice'
+import { Loader as Spinner } from './index'
 
 function login() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState("")
@@ -17,32 +18,24 @@ function login() {
   const loginUser = async (e) => {
     e.preventDefault()
     setError("")
-    setLoading(false)
+    setLoading(1)
     try {
       const session = await account.createEmailPasswordSession(user.email, user.password)
       if (session) {
         const userData = await account.get()
-        if (userData) dispatch(authLogin({ userData }))
+        if (userData) {
+          dispatch(authLogin({ userData }))
+          setLoading(0)
+        }
         navigate('/profile')
       }
     } catch (error) {
       console.log("Login.jsx :: loginUser() :: ", error);
+      setLoading(0)
       setError(error.message)
       throw error
     }
   }
-
-  // const loginUser = async (e) => {
-  //   e.preventDefault()
-  //   setLoading(false)
-  //   try {
-  //     const res = await account.createEmailPasswordSession(user.email, user.password)
-  //     if (res) navigate('/profile')
-  //   } catch (error) {
-  //     console.log("Login.jsx :: loginUser() :: ", error);
-  //     throw error
-  //   }
-  // }
   return (
     <div className="flex flex-col items-center content-center justify-center w-full h-screen dark:bg-purple-700 bg-gray-200">
       <div className="sm:w-1/2 w-full h-auto bg-white dark:bg-purple-900 rounded-md flex flex-col content-center items-center justify-between px-20 dark:border dark:border-gray-300 border-none">
@@ -52,6 +45,11 @@ function login() {
           <p className="text-sm text-red-400 text-center">
             {error ? error : ''}
           </p>
+          <div className="">
+            {
+              loading ? (<Spinner />) : ('')
+            }
+          </div>
           <label htmlFor="email" className="text-sm font-medium text-black dark:text-white mb-3">
             E-mail Address
           </label>
@@ -90,6 +88,7 @@ function login() {
             type="submit"
             className="bg-blue-400 text-white dark:bg-green-400 w-full px-2 py-2 rounded-sm mt-3"
             onClick={loginUser}
+            disabled={ loading }
           >Login</button>
         </form>
       </div>

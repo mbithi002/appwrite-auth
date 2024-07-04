@@ -1,43 +1,51 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid'
 import { account } from '../appwrite/appwriteConfig'
+import { login } from '../store/authSlice'
+import { Loader as Spinner } from './index'
 
 function Signup() {
-  const navigate = useNavigate()
-  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-  })
+  });
+
   const signupUser = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const promise = account.create(
+      const response = await account.create(
         uuidv4(),
         user.email,
         user.password,
-        user.name,
+        user.name
       );
-
-      promise.then(
-        function (response) {
+      if (response) {
+        const session = await account.createEmailPasswordSession(user.email, user.password)
+        if (session) {
+          const userData = await account.get()
+          dispatch(login({ userData }));
+          setLoading(false);
           console.log(response);
-          navigate('/profile')
-        },
-        function (error) {
-          console.log("SignUp.jsx :: Signup() :: ", error);
+          navigate('/profile');
         }
-      )
+      }
     } catch (error) {
-      console.log("Signup.jsx :: sugnupUser() :: ", error);
-      setError(error)
+      setLoading(false);
+      setError(error.message);
+      console.log("Signup.jsx :: signupUser() :: ", error);
     }
+  };
 
-  }
   return (
     <div className="flex flex-col items-center content-center justify-center w-full h-screen dark:bg-purple-700 bg-gray-200">
       <div className="sm:w-1/2 w-full h-auto bg-white dark:bg-purple-900 rounded-md flex flex-col content-center items-center justify-between px-20 dark:border dark:border-gray-300 border-none">
@@ -46,6 +54,9 @@ function Signup() {
           <p className="text-center mb-3 text-black dark:text-white text-xl">Already have an account? <Link className="hover:text-blue-400 hover:underline transition-all duration-200" to={'/'}>Login</Link></p>
           <p className="text-sm text-red-400 text-center">
             {error ? error : ''}
+          </p>
+          <p className="text-sm text-red-400 text-center">
+            {loading ? <Spinner /> : ''}
           </p>
           <label htmlFor="name" className="text-sm font-medium text-black dark:text-white mb-3">
             Name
