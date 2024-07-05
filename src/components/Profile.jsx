@@ -49,7 +49,7 @@ function Profile() {
           <div className="fixed top-0 w-full px-2 py-7 flex flex-row justify-between items-center bg-white dark:bg-purple-600 h-[2rem]">
             <div className="flex flex-row items-center justify-between content-center">
               <span className="text-black dark:text-green-200 text-lg">
-              <i class="fa-solid fa-user mx-3"></i><strong>Hello</strong> {toCamelCase(userDetails.name)}
+                <i class="fa-solid fa-user mx-3"></i><strong>Hello</strong> {toCamelCase(userDetails.name)}
               </span>
             </div>
             <div className="logo text-black dark:text-white">
@@ -60,7 +60,10 @@ function Profile() {
           {/* TodoForm */}
           <TodoForm setTodos={setTodos} />
           {/* Todos */}
-          <Todos todos={todos} setTodos={setTodos}/>
+          <Todos todos={todos} setTodos={setTodos} />
+          <div className="flex justify-center fixed bottom-5 flex-col content-center w-full github">
+            <button className="animate-bounce bg-gray-600 text-center mx-auto text-white p-3 rounded-lg"><a href="https://github.com/mbithi002/weatherApp" target='_blank'><i class="fa-brands fa-github mx-2"></i>Open Github repo</a></button>
+          </div>
         </div>
       ) : (
         <div className="w-full h-screen bg-gray-200 dark:bg-purple-700 text-black dark:text-white flex flex-col content-center justify-center">
