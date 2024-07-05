@@ -62,7 +62,7 @@ function Profile() {
           {/* Todos */}
           <Todos todos={todos} setTodos={setTodos} />
           <div className="flex justify-center fixed bottom-5 flex-col content-center w-full github">
-            <button className="animate-bounce bg-gray-600 text-center mx-auto text-white p-3 rounded-lg"><a href="https://github.com/mbithi002/weatherApp" target='_blank'><i class="fa-brands fa-github mx-2"></i>Open Github repo</a></button>
+            <button className="animate-bounce bg-gray-600 text-center mx-auto text-white p-3 rounded-lg"><a href="https://github.com/mbithi002/appwrite-auth/" target='_blank'><i class="fa-brands fa-github mx-2"></i>Open Github repo</a></button>
           </div>
         </div>
       ) : (
