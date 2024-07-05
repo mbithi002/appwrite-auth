@@ -18,7 +18,7 @@ function Todos({ todos, setTodos }) {
           conf.appwriteCollectionId,
           [Query.equal('userId', user.$id)]
         );
-        console.log(res);
+        // console.log(res);
         setTodos(res.documents);
       } catch (error) {
         console.log("Todos.jsx :: getTodos() :: ", error);
@@ -33,7 +33,7 @@ function Todos({ todos, setTodos }) {
   const deleteTodo = async (id) => {
     try {
       const res = await databases.deleteDocument(conf.appwriteDatabaseId, conf.appwriteCollectionId, id);
-      console.log(res);
+      // console.log(res);
       setTodos((prevTodos) => prevTodos.filter(todo => todo.$id !== id));
     } catch (error) {
       console.log("Todos.jsx :: deleteTodo() :: ", error);

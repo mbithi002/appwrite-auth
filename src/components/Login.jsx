@@ -66,9 +66,7 @@ function Login() {
             {error ? error : ''}
           </p>
           <div className="">
-            {
-              loading ? (<Spinner />) : ('')
-            }
+            {loading ? (<Spinner />) : ('')}
           </div>
           <label htmlFor="email" className="text-sm font-medium text-black dark:text-white mb-3">
             E-mail Address
@@ -77,12 +75,11 @@ function Login() {
             type="email"
             name="email"
             id="email"
-            // autoComplete='current-email'
             placeholder='Enter E-mail Address'
             required
             className='appearance-none rounded-md mb-5 block w-full px-3 py-2'
             onChange={(e) => {
-              setUser({
+              setUserState({
                 ...user, email: e.target.value
               })
             }}
@@ -94,12 +91,11 @@ function Login() {
             type="password"
             name="password"
             id="password"
-            // autoComplete='current-password'
             placeholder='Enter Password'
             required
             className='appearance-none rounded-md mb-5 block w-full px-3 py-2'
             onChange={(e) => {
-              setUser({
+              setUserState({
                 ...user, password: e.target.value
               })
             }}
@@ -112,7 +108,7 @@ function Login() {
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
