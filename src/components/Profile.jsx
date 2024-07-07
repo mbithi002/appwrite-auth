@@ -46,7 +46,7 @@ function Profile() {
     <>
       {userDetails ? (
         <div className="w-full min-h-screen max-h-fit bg-gray-200 dark:bg-purple-700 relative">
-          <div className="fixed top-0 w-full px-2 py-7 flex flex-row justify-between items-center bg-white dark:bg-purple-600 h-[2rem]">
+          <div className="fixed z-30 top-0 w-full px-2 py-7 flex flex-row justify-between items-center bg-white dark:bg-purple-600 h-[2rem]">
             <div className="flex flex-row items-center justify-between content-center">
               <span className="text-black dark:text-green-200 text-lg">
                 <i class="fa-solid fa-user mx-3"></i><strong>Hello</strong> {toCamelCase(userDetails.name)}
