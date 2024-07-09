@@ -26,7 +26,7 @@ function TodoForm({ setTodos }) {
       const date = JSON.stringify({
         year : d.getFullYear(),
         month : d.getMonth() + 1,
-        day : d.getDay() + 1,
+        day : d.getDate() + 1,
         hour : d.getHours(),
         minutes : d.getMinutes(),
       })
